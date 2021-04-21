@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>근처 충전소나 함 찾어바 색햐</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+
+<div style="text-align:center; margin:0 0 100px 0; background:#555; line-height:80px;">
+	<a style="color:#fff; font-weight:bold; font-family:tahoma; font-size:20pt;" href="https://ktsmemo.cafe24.com/s/naver_map_v3/336" target="_blank">야 전기차 충전소나 찾고가라</a>
+</div>
+
+
+<!-- 예제 시작 -->
+
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=bdmmcbykms"></script>
+
+<!-- 지도가 생성되는 div 영역, id 는 naverMap 으로 설정 -->
+<div id="naverMap" style="margin:0 auto; width:650px; max-width:100%; height:500px;"></div>
+<div style="text-align:center; margin-top:10px;">
+</div>
+
+<script>
+
+var map = new naver.maps.Map('naverMap', { // naverMap 값은 div 의 id 값
+	center : new naver.maps.LatLng(37.5782709,126.9770043), // 지도 중앙 위치 : 위도, 경도 설정
+	zoom : 6, // 줌 설정 : 1~14, 수치가 클수록 지도 확대(줌인), 이 옵션 생략시 기본값 9
+	zoomControl : true, // 줌 컨트롤 표시 (기본값 표시안함)
+	zoomControlOptions : { // 줌 컨트롤 오른쪽 위로 위치 설정
+		position : naver.maps.Position.TOP_RIGHT // 오른쪽 위로 설정값
+	},
+	mapTypeControl : true, // 일반ㆍ위성 지도보기 컨트롤 표시 (기본값 표시안함)
+});
+
+
+naver.maps.Event.addListener(map, 'click', function(e){
+	// 제이쿼리 사용
+	map.getProjection() === map.getMapType().projection; // false
+	map.getPrimitiveProjection() === map.getMapType().projection; // true
+
+	var clickpoint = new naver.maps.LatLng( e.coord.lat(),e.coord.lng() );
+	var latlng = naver.maps.UTMK.fromLatLngToUTMK( clickpoint );
+	
+	var split = String(latlng).split(',');
+	var lat = split[0].split('(')[1];
+	var lng = split[1].split(')')[0];
+
+	// function lurl(){
+	// var lat = document.getElementsByName('namp_lat').value;
+	// var lng = document.getElementsByName('namp_lng').value;
+	// $('#evsite').load('https://www.ev.or.kr/mobile/mevloc?gubun=1&curX='+lat+'&curY='+lng+'&poNm=1');
+	window.open('https://www.ev.or.kr/mobile/mevloc?gubun=1&curX='+lat+'&curY='+lng+'&poNm=1','Popupchrome',"width=600,height=500");
+// }
+
+
+});
+
+
+</script>
+
+<!-- 예제 종료 -->
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+naver.maps.Event.addListener(map, 'click', function(e){
+	// 제이쿼리 사용
+	map.getProjection() === map.getMapType().projection; // false
+	map.getPrimitiveProjection() === map.getMapType().projection; // true
+
+	var clickpoint = new naver.maps.LatLng( e.coord.lat(),e.coord.lng() );
+	var latlng = naver.maps.UTMK.fromLatLngToUTMK( clickpoint );
+	
+	var split = String(latlng).split(',');
+	var lat = split[0].split('(')[1];
+	var lng = split[1].split(')')[0];
+
+	// function lurl(){
+	// var lat = document.getElementsByName('namp_lat').value;
+	// var lng = document.getElementsByName('namp_lng').value;
+	// $('#evsite').load('https://www.ev.or.kr/mobile/mevloc?gubun=1&curX='+lat+'&curY='+lng+'&poNm=1');
+	window.open('https://www.ev.or.kr/mobile/mevloc?gubun=1&curX='+lat+'&curY='+lng+'&poNm=1',"_self")
+// }
+
+});
